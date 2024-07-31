@@ -1,0 +1,76 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/23 23:23:51 by gmalyana          #+#    #+#             */
+/*   Updated: 2024/07/31 04:45:21 by gmalyana         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef PHILO_H
+# define PHILO_H
+
+# include <stdlib.h>
+# include <stdio.h>
+# include <pthread.h>
+# include <unistd.h> // usleep
+# include <limits.h>
+# include <sys/time.h> // gettimeofday function
+
+# define THINK "\033[0;33m%ld\t%d is thinking\033[1;0m 💭\n"
+# define EAT "\033[1;32m%ld\t%d is eating\033[1;0m 🍝\n"
+# define SLEEP "\033[0;36m%ld\t%d is sleeping\033[1;0m 💤\n"
+# define HOLD_FORK "\033[0;0m%ld\t%d has taken a fork\033[1;0m 🍽️\n"
+
+// # define THINK "%ld %d is thinking\n"
+// # define EAT "%ld %d is eating\n"
+// # define SLEEP "%ld %d is sleeping\n"
+# define DIE "%ld %d dead\n"
+// # define HOLD_FORK "%ld %d has taken a fork\n"
+
+typedef struct s_philo
+{
+	int				id;
+	long			meals_counter;
+	long			last_meal_time;
+	pthread_t		thread;
+	pthread_mutex_t lock;
+	pthread_mutex_t *l_fork;
+	pthread_mutex_t *r_fork;
+	t_table			*table;
+}	t_philo;
+
+
+typedef struct s_table
+{
+	long			number_of_philos;
+	long			number_of_meals;
+	long			time_to_die;
+	long			time_to_eat;
+	long			time_to_sleep;
+	pthread_mutex_t	table_lock;
+	pthread_mutex_t	print_lock;
+	long			start_time;
+	int				dead_flag;
+	t_philo			*philos;
+}	t_table;
+
+void	*philo_routine(void *ptr);
+long	get_current_time(void);
+int		get_number(char *str);
+int 	check_num(t_table *s, char **args);
+long	get_value(pthread_mutex_t *mutex, long *variable);
+void	set_value(pthread_mutex_t *mutex, long *variable, long value);
+int		threads_create(t_table *table, t_philo *philo);
+void 	my_usleep(t_table *table, long time);
+long	get_current_time(void);
+void	print(t_philo *philo, char *str);
+void	init_fork(t_table *table, pthread_mutex_t *forks);
+void	init_table(t_table *table, t_philo *philos);
+void	init_philos(t_table *table, pthread_mutex_t *forks);
+
+
+#endif
