@@ -6,17 +6,16 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 23:20:46 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/07/24 00:06:33 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/08/02 04:45:16 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-//./philo 4 400 200 200 ""
-int get_number(char *str)
+int	get_number(char *str)
 {
 	long	res;
-	int	i;
+	int		i;
 
 	res = 0;
 	i = 0;
@@ -29,7 +28,7 @@ int get_number(char *str)
 	return (res);
 }
 
-int check_num(t_table *table, char **args)
+int	check_num(t_table *table, char **args)
 {
 	table->number_of_philos = get_number(args[1]);
 	table->time_to_die = get_number(args[2]);
