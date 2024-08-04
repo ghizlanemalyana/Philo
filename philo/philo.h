@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 23:23:51 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/08/02 04:45:20 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/08/04 01:41:40 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,15 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <pthread.h>
-# include <unistd.h> // usleep
+# include <unistd.h>
 # include <limits.h>
-# include <sys/time.h> // gettimeofday function
+# include <sys/time.h>
 
-# define THINK "\033[0;33m%ld\t%d is thinking\033[1;0m 💭\n"
-# define EAT "\033[1;32m%ld\t%d is eating\033[1;0m 🍝\n"
-# define SLEEP "\033[0;36m%ld\t%d is sleeping\033[1;0m 💤\n"
-# define HOLD_FORK "\033[0;0m%ld\t%d has taken a fork\033[1;0m 🍽️\n"
-
-// # define THINK "%ld %d is thinking\n"
-// # define EAT "%ld %d is eating\n"
-// # define SLEEP "%ld %d is sleeping\n"
+# define THINK "%ld %d is thinking\n"
+# define EAT "%ld %d is eating\n"
+# define SLEEP "%ld %d is sleeping\n"
 # define DIE "%ld %d dead\n"
-// # define HOLD_FORK "%ld %d has taken a fork\n"
+# define HOLD_FORK "%ld %d has taken a fork\n"
 
 typedef struct s_table	t_table;
 
@@ -42,7 +37,7 @@ typedef struct s_philo
 	pthread_mutex_t	lock;
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*r_fork;
-	t_table			*table;
+	t_table			*table; // it hold the address of an object, "an struct"
 }	t_philo;
 
 struct s_table
@@ -70,5 +65,6 @@ void	my_usleep(t_table *table, long time);
 long	get_current_time(void);
 void	print(t_philo *philo, char *str);
 int		init_program(t_table *table, t_philo *philos, pthread_mutex_t *forks);
+void	my_exit(t_table *table, int num);
 
 #endif

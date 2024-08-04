@@ -6,29 +6,22 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 23:21:31 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/08/03 01:47:23 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/08/04 04:24:52 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	my_exit(t_table *table)
+void	my_exit(t_table *table, int num)//!
 {
 	int	i;
 
-	if (table->number_of_philos == 1)
-		pthread_detach(table->philos[0].thread);
-	else
+	i = 0;
+	while (i < num)
 	{
-		i = 0;
-		while (i < table->number_of_philos)
-		{
-			pthread_detach(table->philos[i].thread);
-			i++;
-		}
+		pthread_detach(table->philos[i].thread);
+		i++;
 	}
-	pthread_mutex_destroy(&table->table_lock);
-	pthread_mutex_destroy(&table->print_lock);
 	i = 0;
 	while (i < table->number_of_philos)
 	{
@@ -36,6 +29,8 @@ static void	my_exit(t_table *table)
 		pthread_mutex_destroy(table->philos[i].l_fork);
 		i++;
 	}
+	pthread_mutex_destroy(&table->table_lock);
+	pthread_mutex_destroy(&table->print_lock);
 }
 
 static int	full_philo(t_table *table)
@@ -44,7 +39,7 @@ static int	full_philo(t_table *table)
 	t_philo	*philo;
 
 	i = 0;
-	if (table->number_of_meals == -2)
+	if (table->number_of_meals == -1)
 		return (0);
 	while (i < table->number_of_philos)
 	{
@@ -63,6 +58,8 @@ static int	dead_philo(t_philo *philo)
 	long	res;
 
 	table = philo->table;
+	if (get_value(&philo->lock, &philo->last_meal_time) == 0)
+		return (0);
 	res = get_current_time() - get_value(&philo->lock, &philo->last_meal_time)
 		>= table->time_to_die;
 	if (res == 1)
@@ -82,14 +79,13 @@ static void	monitoring(t_table *table)
 {
 	int	i;
 
-	my_usleep(table, table->time_to_die / 2);
 	while (1)
 	{
 		i = 0;
 		while (i < table->number_of_philos)
 		{
 			if (full_philo(table) || dead_philo(&table->philos[i]))
-				return (my_exit(table));
+				return (my_exit(table, table->number_of_philos));
 			i++;
 		}
 	}
