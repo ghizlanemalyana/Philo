@@ -1,6 +1,6 @@
-flags = -Wall -Wextra -Werror
 sources = init.c main.c parse.c routine.c threads.c utils.c
 objs = $(sources:.c=.o)
+flags = -Wall -Wextra -Werror
 NAME = philo
 
 all: $(NAME)

@@ -6,13 +6,13 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 23:21:31 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/08/04 04:24:52 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/08/10 15:31:50 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	my_exit(t_table *table, int num)//!
+void	my_exit(t_table *table, int num)
 {
 	int	i;
 

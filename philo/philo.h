@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 23:23:51 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/08/04 01:41:40 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/08/10 15:32:11 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_philo
 	pthread_mutex_t	lock;
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*r_fork;
-	t_table			*table; // it hold the address of an object, "an struct"
+	t_table			*table;
 }	t_philo;
 
 struct s_table
