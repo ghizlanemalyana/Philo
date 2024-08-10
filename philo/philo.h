@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 23:23:51 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/08/10 15:32:11 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/08/10 15:53:30 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int		get_number(char *str);
 int		check_num(t_table *s, char **args);
 long	get_value(pthread_mutex_t *mutex, long *variable);
 void	set_value(pthread_mutex_t *mutex, long *variable, long value);
-void	threads_create(t_table *table);
+int		threads_create(t_table *table);
 void	my_usleep(t_table *table, long time);
 long	get_current_time(void);
 void	print(t_philo *philo, char *str);

@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 23:21:31 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/08/10 15:31:50 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/08/10 15:53:17 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ int	main(int argc, char **argv)
 		return (0);
 	if (init_program(&table, philos, forks) == 1)
 		return (1);
-	threads_create(&table);
+	if (threads_create(&table) == 1)
+		return (1);
 	monitoring(&table);
 }

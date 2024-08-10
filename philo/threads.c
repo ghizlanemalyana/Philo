@@ -6,13 +6,13 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 04:29:42 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/08/10 15:32:39 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/08/10 15:53:23 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	threads_create(t_table *table)
+int	threads_create(t_table *table)
 {
 	int	i;
 
@@ -24,8 +24,10 @@ void	threads_create(t_table *table)
 		{
 			set_value(&table->table_lock, &table->start_time, -1);
 			my_exit(table, i);
+			return (1);
 		}
 		i++;
 	}
 	set_value(&table->table_lock, &table->start_time, get_current_time());
+	return (0);
 }
