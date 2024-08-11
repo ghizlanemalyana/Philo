@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 05:15:06 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/08/03 07:26:37 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/08/11 14:57:38 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ long	get_current_time(void)
 
 void	my_usleep(t_table *table, long time)
 {
-	long	start_time;
+	long	start;
 
-	start_time = get_current_time();
-	while (get_current_time() - start_time < time
+	start = get_current_time();
+	while (get_current_time() - start < time
 		&& (get_value(&table->table_lock, &table->dead_flag) == 0))
 		usleep(100);
 }

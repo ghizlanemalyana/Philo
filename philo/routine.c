@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 06:05:18 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/08/10 11:35:44 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/08/11 15:02:46 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,17 @@ static int	eat(t_philo *philo)
 		return (0);
 	if (get_value(&table->table_lock, &table->dead_flag) == 1)
 		return (0);
-	pthread_mutex_lock(philo->r_fork);
-	print(philo, HOLD_FORK);
 	pthread_mutex_lock(philo->l_fork);
+	print(philo, HOLD_FORK);
+	pthread_mutex_lock(philo->r_fork);
 	print(philo, HOLD_FORK);
 	set_value(&philo->lock, &philo->last_meal_time, get_current_time());
 	print(philo, EAT);
 	my_usleep(table, table->time_to_eat);
-	set_value(&philo->lock, &philo->meals_counter, 0);
-	pthread_mutex_unlock(philo->l_fork);
+	if (table->number_of_meals != -1)
+		set_value(&philo->lock, &philo->meals_counter, 0);
 	pthread_mutex_unlock(philo->r_fork);
+	pthread_mutex_unlock(philo->l_fork);
 	return (1);
 }
 
